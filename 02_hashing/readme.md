@@ -9,6 +9,12 @@ Demo: [here](https://youtu.be/rnTLr6iUbf0)
 
 If required, you can check the hashing methods here: https://asecuritysite.com/encryption/js10 
 
+Examples:
+
+
+* https://asecuritysite.com/encryption/kdf
+* https://asecuritysite.com/encryption/aes_gcm2
+
 ## A	Hashing
 In this section we will look at some fundamental hashing methods.
 
