@@ -8,7 +8,7 @@ Lab Demo: [here](https://youtu.be/N3UADaXmOik)
 Sample answers:[here](https://github.com/billbuchanan/appliedcrypto/blob/master/unit02_symmetric/lab/possible_ans.md)
 
 
-## D	Python Coding (Encrypting)
+## A	Python Coding (Encrypting)
 In this part of the lab, we will investigate the usage of Python code to perform different padding methods and using AES. First download the code from:
 
 Web link (Cipher code): http://asecuritysite.com/cipher01.zip
