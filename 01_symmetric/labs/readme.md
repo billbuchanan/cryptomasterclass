@@ -1,6 +1,6 @@
-![esecurity](https://raw.githubusercontent.com/billbuchanan/esecurity/master/z_associated/esecurity_graphics.jpg)
+<!-- ![esecurity](https://raw.githubusercontent.com/billbuchanan/esecurity/master/z_associated/esecurity_graphics.jpg) -->
 
-# Lab 2: Symmetric Key
+# Lab 1: Symmetric Key
 Objective: The key objective of this lab is to understand the range of symmetric key methods used within symmetric key encryption. We will introduce block ciphers, stream ciphers and padding. The key tools used include OpenSSL, Python and JavaScript. 
 
 Lab Demo: [here](https://youtu.be/N3UADaXmOik) 
