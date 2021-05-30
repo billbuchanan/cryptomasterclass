@@ -7,190 +7,6 @@ Lab Demo: [here](https://youtu.be/N3UADaXmOik)
 
 Sample answers:[here](https://github.com/billbuchanan/appliedcrypto/blob/master/unit02_symmetric/lab/possible_ans.md)
 
-## A	OpenSSL
-OpenSSL is a standard tool that we used in encryption. It supports many of the standard symmetric key methods, including AES, 3DES and ChaCha20.
-
-
-### A.1	
-
-Using: 
-
-* openssl list-cipher-commands
-* openssl version
-
-Outline five encryption methods that are supported:
-
-
-
-Outline the version of OpenSSL: 
-
-
-###  A.2	
-Using openssl and the command in the form:
-<pre>
-openssl prime –hex 1111
-</pre>
-
-Check if the following are prime numbers:
-
-* 42 [Yes][No]
-* 1421 [Yes][No]
-
-### A.3	
-Now create a file named myfile.txt (using nano).
-
-Next encrypt with aes-256-cbc 
-
-<pre>
-openssl enc -aes-256-cbc -in myfile.txt -out encrypted.bin
-</pre>
-
-and enter your password.
-
-Use the following command to view the output file:
-
-<pre>
-cat encrypted.bin
-</pre>
-
-Is it easy to write out or transmit the output: [Yes][No]
-
-### A.4	
-Now repeat the previous command and add the –base64 option.
-
-<pre>
-openssl enc -aes-256-cbc -in myfile.txt -out encrypted.bin –base64
-</pre>
-
-Use following command to view the output file:
-
-<pre>
-cat encrypted.bin
-</pre>
-
-Is it easy to write out or transmit the output: [Yes][No]
-
-### A.5	
-Now Repeat the previous command and observe the encrypted output.
-
-<pre>
-openssl enc -aes-256-cbc -in myfile.txt -out encrypted.bin –base64
-</pre>
-
-Has the output changed? [Yes][No]
-
-
-Why has it changed?
-
-
-### A.6	
-Now let's decrypt the encrypted file with the correct format:
-
-<pre> 
-openssl enc -d -aes-256-cbc -in encrypted.bin -pass pass:napier -base64	
-</pre>
-Has the output been decrypted correctly?
-
-
-What happens when you use the wrong password?
-
-
-### A.7 	
-Now encrypt a file with Blowfish and see if you can decrypt it.
-
-
-Did you manage to decrypt the file? [Yes][No]
-
-## B	Padding (AES)
-With encryption, we normally use a block cipher, and where we must pad the end blocks to make sure that the data fits into a whole number of block. Some background material is here:
-
-Web link (Padding): http://asecuritysite.com/encryption/padding
-
-In the first part of this tutorial we will investigate padding blocks:
-
-
-### B.1	
-With AES which uses a 256-bit key, what is the normal block size (in bytes).
-
-Block size (bytes):
-
-Number of hex characters for block size:
-
-
-### B.2	
-Go to: Web link (AES Padding): http://asecuritysite.com/encryption/padding
-
-Using 256-bit AES encryption, and a message of “kettle” and a password of “oxtail”, determine the cipher using the differing padding methods (you only need to show the first six hex characters). If you like, copy and paste the Python code from the page, and run it on your Ubuntu instance.
-
-| Method | Hex characters  |
-|-----------|-----------|
-| CMS |  | 
-| Null|  | 
-| Space|  | 
-
-### B.3	
-For the following words, estimate how many hex characters will be used for the 256-bit AES encryption:
-
-| Word | Number of hex characters  |
-|-----------|-----------|
-| "fox" |  | 
-| foxtrot"|  | 
-| "foxtrotanteater"|  | 
-|  "foxtrotanteatercastle"|  | 
-
-### B.4	
-With 256-bit AES, for n characters in a string, how would you generalise the calculation of the number of hex characters in the cipher text.
-
-How many Base-64 characters would be used (remember 6 bits are used to represent a Base-64 character):	
-
-Hex characters:
-
-Base-64 characters: 
-
-## C	Padding (DES)
-In the first part of this lab we will investigate padding blocks.
-
-### C.1	
-With DES which uses a 64-bit key, what is the normal block size (in bytes):
-
-Block size (bytes):
-
-Number of hex characters for block size:
-
-
-### C.2	
-Go to: Web link (DES Padding): http://asecuritysite.com/encryption/padding_des
-
-Using 64-bit DES key encryption, and a message of “kettle” and a password of “oxtail”, determine the cipher using the differing padding methods.
-
-If you like, copy and paste the Python code from the page, and run it on your Ubuntu instance.
-
-CMS: 
-
-Null:
-
-Space:
-
-### C.3	
-
-For the following words, estimate how many hex characters will be used for the 64-bit key DES encryption:
-
-Number of hex characters:
-
-“fox”:
-
-“foxtrot”:
-
-“foxtrotanteater”:
-
-“foxtrotanteatercastle”:
-
-### C.4	
-With 64-bit DES, for n characters in a string, how would you generalise the calculation of the number of hex characters in the cipher text.
-
-How many Base-64 characters would be used (remember 6 bits are used to represent a Base-64 character):	Hex characters:
-
-Base-64 characters: 
 
 ## D	Python Coding (Encrypting)
 In this part of the lab, we will investigate the usage of Python code to perform different padding methods and using AES. First download the code from:
@@ -241,9 +57,9 @@ The Repl.it code is [here](https://repl.it/@billbuchanan/sma02#main.py)
 
 Now update the code so that you can enter a string and the program will show the cipher text. The format will be something like:
 
-<pre>
+```
 python cipher01.py hello mykey
-</pre>
+```
 
 where “hello” is the plain text, and “mykey” is the key.  A possible integration is:
 
@@ -285,7 +101,7 @@ cipher=input('Enter cipher:')
 password=input('Enter password:')
 ```
 
-## E	Python Coding (Decrypting)
+## D	Python Coding (Decrypting)
 Now modify your coding for 256-bit AES ECB encryption, so that you can enter the cipher text, and an encryption key, and the code will decrypt to provide the result. You should use CMS for padding. With this, determine the plaintext for the following (note, all the plain text values are countries around the World):
 
 | CMS Cipher (256-bit AES ECB) |		Key 	|	Plain text |
@@ -317,7 +133,7 @@ Now update your program, so that it takes a cipher string in Base-64 and convert
 	
 PS … remember to add "import base64".
 
-## F	Catching exceptions
+## E	Catching exceptions
 If we try “1jDmCTD1IfbXbyyHgAyrdg==” with a passphrase of “hello”, we should get a country. What happens when we try the wrong passphrase?
 
 Output when we use “hello”:
@@ -348,10 +164,10 @@ Run the program and try to crack:
 What is the password:
 
 
-## G	Stream Ciphers
+## D	Stream Ciphers
 The Chacha20 cipher is a stream cipher which uses a 256-bit key and a 64-bit nonce (salt value). Currently AES has a virtual monopoly on secret key encryption. There would be major problems, though, if this was cracked. Along with this AES has been shown to be weak around cache-collision attacks. Google thus propose ChaCha20 as an alternative, and actively use it within TLS connections. Currently it is three times faster than software-enabled AES and is not sensitive to timing attacks. It operates by creating a key stream which is then X-ORed with the plaintext. It has been standardised with RFC 7539.
 
-### G.1	We can use node.js to implement ChaCha20:
+### D.1	We can use node.js to implement ChaCha20:
 
 ```javascript
 var chacha20 = require("chacha20");
@@ -380,11 +196,12 @@ nonce, ciphertext).toString());
 Repl.it code: [here](https://repl.it/@billbuchanan/chachalab#index.js)
 
 If we use a key of "qwerty", can you find the well-known fruits (in lower case) of the following ChaCha20 cipher streams:
-<pre>
+
+```
 e47a2bfe646a
 ea783afc66
 e96924f16d6e
-</pre>
+```
 
 What are the fruits?
 
@@ -409,7 +226,7 @@ How many bits will the salt use? You may have to look at the node.js documentati
  
 
 
-### G.2	
+### D.2	
 RC4 is a standard stream cipher and can be used for light-weight cryptography. It can have a variable key size. The following is a node.js implementation:
 
 ```javascript
@@ -438,11 +255,11 @@ console.log("Decipher:\t",text);
 
 For a password of "napier", find out the fruits used for these RC4 cipher streams:
 
-<pre>
+```
 8d1cc8bdf6da
 911adbb2e6dda57cdaad
 8907deba
-</pre>
+```
 
 What are the fruits?
 
