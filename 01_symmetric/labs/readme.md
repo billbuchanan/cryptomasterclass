@@ -290,5 +290,58 @@ print ("\n\nDecrypted:\t",res.decode())
 Repl.it: [here](https://replit.com/@billbuchanan/aesgcm-1) Demo: [here](https://asecuritysite.com/encryption/aes_gcm)
 
 
+## C.4
+This uses AES and PBKDF2 for key generation:
 
-* GCM Mode: https://asecuritysite.com/encryption/aes_gcm2
+```
+
+from Crypto.Cipher import AES
+import sys
+import binascii
+from Crypto.Protocol.KDF import PBKDF2
+from Crypto.Hash import SHA256
+from Crypto.Random import get_random_bytes
+
+plaintext='hello how are you?'
+password='qwerty123'
+
+
+if (len(sys.argv)>1):
+  plaintext=(sys.argv[1])
+if (len(sys.argv)>2):
+  password=(sys.argv[2])
+
+def encrypt(plaintext,key, mode):
+  encobj = AES.new(key, AES.MODE_GCM)
+  ciphertext,authTag=encobj.encrypt_and_digest(plaintext)
+  return(ciphertext,authTag,encobj.nonce)
+
+def decrypt(ciphertext,key, mode):
+  (ciphertext,  authTag, nonce) = ciphertext
+  encobj = AES.new(key,  mode, nonce)
+  return(encobj.decrypt_and_verify(ciphertext, authTag))
+
+salt = get_random_bytes(32)
+key = PBKDF2(password, salt, 32, count=1000000, hmac_hash_module=SHA256)
+
+print("GCM Mode: Stream cipher and authenticated")
+print("\nMessage:\t",plaintext)
+print("Key:\t\t",password)
+
+
+ciphertext = encrypt(plaintext.encode(),key,AES.MODE_GCM)
+
+print("Salt:\t\t",binascii.hexlify(salt))
+print("Cipher:\t\t",binascii.hexlify(ciphertext[0]))
+print("Auth Msg:\t",binascii.hexlify(ciphertext[1]))
+print("Nonce:\t\t",binascii.hexlify(ciphertext[2]))
+
+
+res= decrypt(ciphertext,key,AES.MODE_GCM)
+
+
+print ("\n\nDecrypted:\t",res.decode())
+```
+
+
+Repl.it: [here](https://asecuritysite.com/encryption/aes_gcm2) Demo: [here](https://asecuritysite.com/encryption/aes_gcm2)
