@@ -5,8 +5,6 @@ Objective: The key objective of this lab is to understand the range of symmetric
 
 Sample answers:[here](https://github.com/billbuchanan/cryptomasterclass/blob/master/unit02_symmetric/lab/possible_ans.md)
 
-To add:
-
 ## A	Python Coding (ECB)
 
 ### A.1 ECB Mode
