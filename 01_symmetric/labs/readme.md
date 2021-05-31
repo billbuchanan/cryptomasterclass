@@ -88,25 +88,7 @@ Now determine the cipher text for the following (the first example has already b
 |  “Africa”	| “changeme”| | 
 	
 
-Now copy your code and modify it so that it implements 64-bit DES and complete the table (Ref to: http://asecuritysite.com/encryption/padding_des):
-
-
-| Message | Key | CMS Cipher |
-|-----------|-----------|-----------|
-|“hello”	|	“hello123” |	8f770898ddb9fb38 |
-|“inkwell”|	“orange”| |
-|“security”|	“qwerty”| |
-|“Africa”|	“changeme”| |
-	
-
-Now modify the code so that the user can enter the values from the keyboard, such as with:
-
-```python
-cipher=input('Enter cipher:')
-password=input('Enter password:')
-```
-
-## D	Python Coding (Decrypting)
+## B	Python Coding (Decrypting)
 Now modify your coding for 256-bit AES ECB encryption, so that you can enter the cipher text, and an encryption key, and the code will decrypt to provide the result. You should use CMS for padding. With this, determine the plaintext for the following (note, all the plain text values are countries around the World):
 
 | CMS Cipher (256-bit AES ECB) |		Key 	|	Plain text |
