@@ -1,7 +1,7 @@
 <!-- ![esecurity](https://raw.githubusercontent.com/billbuchanan/esecurity/master/z_associated/esecurity_graphics.jpg) -->
 
 # Lab 1: Symmetric Key
-Objective: The key objective of this lab is to understand the range of symmetric key methods used within symmetric key encryption. We will introduce block ciphers, stream ciphers and padding. T
+Objective: The key objective of this lab is to understand the range of symmetric key methods used within symmetric key encryption. We will introduce block ciphers, stream ciphers and padding. 
 
 Sample answers:[here](https://github.com/billbuchanan/cryptomasterclass/blob/master/unit02_symmetric/lab/possible_ans.md)
 
