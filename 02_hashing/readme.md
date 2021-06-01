@@ -38,7 +38,6 @@ The following defines a Python script which calculates a whole range of hashes [
 ```python
 # https://asecuritysite.com/encryption/hash
 
-
 import sys
 from hashlib import md5
 import passlib.hash;
@@ -54,15 +53,11 @@ salt="ZDzPE45C"
 string="the boy stood on the burning deck"
 salt2="1111111111111111111111"
 
-
-
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 print ("Word: ",string)
 print ("Salt: ",salt)
-
-
 
 print("\nHashes")
 print("SHA-1\t",hashlib.sha1(string.encode()).hexdigest())
@@ -93,7 +88,7 @@ print("Postgres (MD5):\t\t", passlib.hash.postgres_md5.hash(string.encode(), use
 print("Cisco PIX:\t\t",  passlib.hash.cisco_pix.hash(string[:16].encode(), user=salt))
 print("Cisco Type 7:\t\t",  passlib.hash.cisco_type7.hash(string.encode()))
 ```
-Figure 1 Bcrypt
+Figure 1 Examples
 
 ### A.2
 Create the hash for the word “hello” for the different methods (you only have to give the first six hex characters for the hash):
@@ -124,8 +119,7 @@ SHA-512:
 ### B.1
 This uses AES and PBKDF2 for key generation:
 
-```
-
+```python
 from Crypto.Cipher import AES
 import sys
 import binascii
@@ -179,7 +173,7 @@ Repl.it: [here](https://asecuritysite.com/encryption/aes_gcm2) Demo: [here](http
 
 ### B.2
 In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt:
-```
+```python
 from Crypto.Protocol.KDF import PBKDF2, scrypt,HKDF
 import bcrypt
 from Crypto.Random import get_random_bytes
@@ -216,7 +210,36 @@ Password: qwerty, Salt: 329b074c0058ccf1ba2e4705382963ff
 Hash:  b'a22e6c7294e74b73cb3fbe43004c2557'
 ```
 
-Now integrate the code this code with the code in Program B.1, so that we generate an AES encryption key for either HKDF, PBKDF2, bcrypt and scrypt, and prove the following:
+and:
+
+```
+Using scrypt
+Password: qwerty123, Salt: 329b074c0058ccf1ba2e4705382963ff
+
+Hash:  b'798557bf07a52c2f84c5882a19c1de0e'
+```
+
+and:
+
+```
+Using bcrypt
+Password: qwerty123, Salt: 329b074c0058ccf1ba2e4705382963ff
+
+Hash:  b'bd3cd31140778db8c4b60f0b7917bf3e'
+```
+
+and:
+
+```
+Using HKDF
+Password: qwerty123, Salt: 329b074c0058ccf1ba2e4705382963ff
+
+Hash:  b'7e9ab9777f7f6bfaf42fe5433c0ab114'
+```
+
+## B.3
+Now integrate the code in Program B.2 with the code in Program B.1, so that we generate an AES encryption key for either HKDF, PBKDF2, bcrypt and scrypt, and prove the following for PBKDF2:
+
 ```
 Message:     hello how are you?
 Password:    qwerty123
