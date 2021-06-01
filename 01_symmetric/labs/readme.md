@@ -5,7 +5,7 @@ Objective: The key objective of this lab is to understand the range of symmetric
 
 ## A Bit operations, hex and Base-64
 
-```
+```python
 import binascii
 import base64
 
@@ -54,7 +54,7 @@ Can you complete the following:
 
 and:
 
-```
+```python
 import sys
 
 val1="00110101"
@@ -217,7 +217,7 @@ What is the password:
 ### B.1 Modes
 AES has a number of modes, including CBC, CTR and OFB. In the following code, we will implement these block ciphers:
 
-```
+```python
 # https://asecuritysite.com/encryption/aes_modes
 from Crypto.Cipher import AES
 import hashlib
@@ -324,7 +324,7 @@ Enter a long stream of the same character for the plain text, such as: "aaaaaaaa
 ### C.1
 While block ciphers can be slow to encrypt and encrypt, a stream cipher can be processed faster. In this case, we will use GCM to convert to a cipher, and will not need any padding. 
 
-```
+```python
 from Crypto.Cipher import AES
 import hashlib
 import sys
@@ -388,7 +388,7 @@ Answers:
 
 Possible solution for B.2:
 
-```
+```python
 from Crypto.Cipher import AES
 import hashlib
 import sys
@@ -432,8 +432,8 @@ print ("  decrypt: "+plaintext)
 
 /vA6BD+ZXu8j6KrTHi1Y+w== - italy
 
-```
-ffrom Crypto.Cipher import AES
+```python
+from Crypto.Cipher import AES
 import hashlib
 import sys
 import binascii
