@@ -3,12 +3,9 @@
 # Lab 1: Symmetric Key
 Objective: The key objective of this lab is to understand the range of symmetric key methods used within symmetric key encryption. We will introduce block ciphers, stream ciphers and padding. 
 
-Sample answers:[here](https://github.com/billbuchanan/cryptomasterclass/blob/master/unit02_symmetric/lab/possible_ans.md)
-
 ## A Bit operations, hex and Base-64
 
 ```
-
 import binascii
 import base64
 
@@ -164,7 +161,7 @@ Now determine the cipher text for the following (the first example has already b
 | “security”	| “qwerty”| | 
 |  “Africa”	| “changeme”| | 
 	
-### A.2 Decrypting ciphertext
+### B.2 Decrypting ciphertext
 Now modify your coding for 256-bit AES ECB encryption, so that you can enter the cipher text, and an encryption key, and the code will decrypt to provide the result. You should use CMS for padding. With this, determine the plaintext for the following (note, all the plain text values are countries around the World):
 
 | CMS Cipher (256-bit AES ECB) |		Key 	|	Plain text |
@@ -376,5 +373,101 @@ print ("\n\nDecrypted:\t",res.decode())
 
 Repl.it: [here](https://replit.com/@billbuchanan/aesgcm-1) Demo: [here](https://asecuritysite.com/encryption/aes_gcm)
 
+## Sample answers
+
+Sample answers:[here](https://github.com/billbuchanan/cryptomasterclass/blob/master/unit02_symmetric/lab/possible_ans.md)
 
 
+Answers:
+```
+    germany
+    france
+    england
+    scotland
+```
+
+Possible solution for B.2:
+
+```
+from Crypto.Cipher import AES
+import hashlib
+import sys
+import binascii
+import Padding
+
+val='fox'
+password='hello'
+cipher='b436bd84d16db330359edebf49725c62'
+
+import sys
+
+if (len(sys.argv)>1):
+	cipher=(sys.argv[1])
+if (len(sys.argv)>2):
+	password=(sys.argv[2])
+
+plaintext=val
+
+def encrypt(plaintext,key, mode):
+	encobj = AES.new(key,mode)
+	return(encobj.encrypt(plaintext))
+
+def decrypt(ciphertext,key, mode):
+	encobj = AES.new(key,mode)
+	return(encobj.decrypt(ciphertext))
+
+key = hashlib.sha256(password.encode()).digest()
+
+
+ciphertext=binascii.unhexlify(cipher)
+
+plaintext = decrypt(ciphertext,key,AES.MODE_ECB)
+print ('Cipher: '+ cipher)
+print ('Password: '+ password)
+
+plaintext = Padding.removePadding(plaintext.decode(),blocksize=Padding.AES_blocksize,mode='CMS')
+
+print ("  decrypt: "+plaintext)
+```
+
+/vA6BD+ZXu8j6KrTHi1Y+w== - italy
+
+```
+ffrom Crypto.Cipher import AES
+import hashlib
+import sys
+import binascii
+import Padding
+import base64
+
+val='fox'
+password='hello'
+cipher=''
+
+import sys
+
+if (len(sys.argv)>1):
+	cipher=(sys.argv[1])
+if (len(sys.argv)>2):
+	password=(sys.argv[2])
+
+plaintext=val
+
+def encrypt(plaintext,key, mode):
+	encobj = AES.new(key,mode)
+	return(encobj.encrypt(plaintext))
+
+def decrypt(ciphertext,key, mode):
+	encobj = AES.new(key,mode)
+	return(encobj.decrypt(ciphertext))
+
+key = hashlib.sha256(password.encode()).digest()
+
+cipher='/vA6BD+ZXu8j6KrTHi1Y+w=='
+
+ciphertext = base64.b64decode(cipher)
+plaintext = decrypt(ciphertext,key,AES.MODE_ECB)
+print (plaintext)
+plaintext = Padding.removePadding(plaintext.decode(),blocksize=Padding.AES_blocksize,mode='CMS')
+print ("  decrypt: "+plaintext)
+```
