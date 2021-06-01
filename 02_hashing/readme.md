@@ -115,6 +115,151 @@ SHA-256:
 
 SHA-512:
 
+### A.3
+Now we will benchmark the hashing methods:
+
+```python
+import timeit
+from time import time
+import sys
+from hashlib import md5
+import passlib.hash;
+import mmh3    
+import smhasher 
+import bcrypt
+
+num = 30
+repeat_n=1
+
+salt="ZDzPE45C"
+string="the boy stood on the burning deck"
+salt2="1111111111111111111111"
+
+setup_c="""
+from hashlib import md5
+import mmh3
+import smhasher
+import hashlib
+import passlib.hash;
+#import pyhash
+salt="ZDzPE45C"
+string="the boy stood on the burning deck"
+salt2="1111111111111111111111"
+
+
+import hashlib;
+
+
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
+
+print ("Word: ",string)
+print ("Salt: ",salt)
+
+print("\nMethod:\t\t\tHashes per second")
+t=timeit.timeit(stmt="hashlib.sha1(string.encode()).hexdigest()", setup=setup_c, number=num)
+print("SHA-1:\t\t\t",int(40/t))
+t=timeit.timeit(stmt="hashlib.sha256(string.encode()).hexdigest()", setup=setup_c,  number=num)
+print("SHA-256:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="hashlib.sha512(string.encode()).hexdigest()", setup=setup_c,  number=num)
+print("SHA-512:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="md5(string.encode()).hexdigest()", setup=setup_c,  number=num)
+print("MD5:\t\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.des_crypt.encrypt(string.encode(), salt=salt[:2])", setup=setup_c,  number=num)
+print("DES:\t\t\t",int(40/t))
+
+# t=timeit.timeit(stmt="bcrypt.kdf(string.encode(),salt=salt.encode(),desired_key_bytes=32,rounds=100 )", setup=setup_c,  number=num)
+
+# print("Bcrypt:\t\t\t",int(40/t))
+
+# t= timeit.timeit(stmt="passlib.hash.apr_md5_crypt.encrypt(string.encode(), salt=salt)", setup=setup_c,  number=num)
+# print("APR1:\t\t\t",int(40/t))
+
+#print "PHPASS:\t\t\t",  timeit.timeit(stmt="passlib.hash.phpass.encrypt(string, salt=salt)", setup=setup_c,  number=num)
+
+t= timeit.timeit(stmt="passlib.hash.pbkdf2_sha1.hash(string.encode(),rounds=5, salt=salt.encode())", setup=setup_c,  number=num)
+print("PBKDF2 (SHA1):\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.pbkdf2_sha256.hash(string.encode(),rounds=5, salt=salt.encode())", setup=setup_c,  number=num)
+print("PBKDF2 (SHA-256):\t",int(40/t))
+
+t= timeit.timeit(stmt="passlib.hash.lmhash.encrypt(string.encode())", setup=setup_c,  number=num)
+print("LM Hash:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.nthash.encrypt(string.encode())", setup=setup_c,  number=num)
+print("NT Hash:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.msdcc.encrypt(string.encode(), salt)", setup=setup_c,  number=num)
+print("MS DCC:\t\t\t",int(40/t))
+
+t= timeit.timeit(stmt="passlib.hash.ldap_hex_md5.encrypt(string.encode())", setup=setup_c,  number=num)
+print("LDAP (MD5):\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.ldap_hex_sha1.encrypt(string.encode())", setup=setup_c,  number=num)
+
+print("LDAP (SHA1):\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.atlassian_pbkdf2_sha1.encrypt(string.encode())", setup=setup_c,  number=num)
+print("LDAP (Lass):\t\t",int(40/t))
+
+
+t=timeit.timeit(stmt="passlib.hash.mssql2000.encrypt(string.encode())", setup=setup_c,  number=num)
+print("MS SQL 2000:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.mysql41.encrypt(string.encode())", setup=setup_c,  number=num)
+print("MySQL:\t\t\t",int(40/t))
+
+t= timeit.timeit(stmt="passlib.hash.oracle10.encrypt(string.encode(), user=salt)", setup=setup_c,  number=num)
+print("Oracle 10:\t\t",int(40/t))
+
+t= timeit.timeit(stmt="passlib.hash.postgres_md5.encrypt(string.encode(), user=salt)", setup=setup_c,  number=num)
+print("Postgres (MD5):\t\t",int(40/t))
+
+t= timeit.timeit(stmt="passlib.hash.cisco_pix.encrypt(string[:16].encode(), user=salt.encode())", setup=setup_c,  number=num)
+print("Cisco PIX:\t\t",int(40/t))
+
+t=timeit.timeit(stmt="passlib.hash.cisco_type7.encrypt(string.encode())", setup=setup_c,  number=num)
+print("Cisco Type 7:\t\t",int(40/t))
+
+
+t=timeit.timeit(stmt="mmh3.hash_bytes(string)", setup=setup_c,  number=num)
+print("Murmur:\t\t\t",int(40/t))
+
+print("\nHashes")
+print("SHA-1\t",hashlib.sha1(string.encode()).hexdigest())
+print("SHA-256\t",hashlib.sha256(string.encode()).hexdigest())
+print("SHA-512\t",hashlib.sha512(string.encode()).hexdigest())
+
+print("MD-5:\t\t\t", md5(string.encode()).hexdigest())
+print("DES:\t\t\t",  passlib.hash.des_crypt.encrypt(string.encode(), salt=salt[:2]))
+
+print("Bcrypt:\t\t\t", bcrypt.kdf(string.encode(),salt=salt.encode(),desired_key_bytes=32,rounds=100 ).hex())
+
+print("APR1:\t\t\t",  passlib.hash.apr_md5_crypt.encrypt(string.encode(), salt=salt))
+
+print("PBKDF2 (SHA1):\t\t",  passlib.hash.pbkdf2_sha1.encrypt(string.encode(),rounds=5, salt=salt.encode()))
+print("PBKDF2 (SHA-256):\t", passlib.hash.pbkdf2_sha256.encrypt(string,rounds=5, salt=salt.encode()))
+
+print("LM Hash:\t\t",  passlib.hash.lmhash.encrypt(string.encode()))
+print("NT Hash:\t\t",  passlib.hash.nthash.encrypt(string.encode()))
+print("MS DCC:\t\t\t",  passlib.hash.msdcc.encrypt(string.encode(), salt))
+
+print("LDAP (MD5):\t\t", passlib.hash.ldap_hex_md5.encrypt(string.encode()))
+print("LDAP (SHA1):\t\t",  passlib.hash.ldap_hex_sha1.encrypt(string.encode()))
+
+print("MS SQL 2000:\t\t",  passlib.hash.mssql2000.encrypt(string.encode()))
+print("MySQL:\t\t\t",  passlib.hash.mysql41.encrypt(string.encode()))
+print("Oracle 10:\t\t",  passlib.hash.oracle10.encrypt(string.encode(), user=salt))
+print("Postgres (MD5):\t\t", passlib.hash.postgres_md5.encrypt(string.encode(), user=salt))
+print("Cisco PIX:\t\t",  passlib.hash.cisco_pix.encrypt(string[:16].encode(), user=salt))
+print("Cisco Type 7:\t\t",  passlib.hash.cisco_type7.encrypt(string.encode()))
+```
+Replit: [here](https://replit.com/@billbuchanan/htest#main.py)
+
+
 ## B Key generations with PBKDF2
 ### B.1
 This uses AES and PBKDF2 for key generation:
