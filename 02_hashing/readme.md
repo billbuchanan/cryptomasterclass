@@ -5,8 +5,6 @@ Objective: The key objective of this lab is to understand the range of hashing m
  
 Examples:
 
-
-* https://asecuritysite.com/encryption/kdf
 * https://asecuritysite.com/encryption/aes_gcm2
 
 ## A.1	Hashing
@@ -180,7 +178,7 @@ print ("\n\nDecrypted:\t",res.decode())
 Repl.it: [here](https://asecuritysite.com/encryption/aes_gcm2) Demo: [here](https://asecuritysite.com/encryption/aes_gcm2)
 
 ### B.2
-In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt. Integrate with the program in B.2 and test its operation for the AES GCM mode:
+In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt:
 ```
 from Crypto.Protocol.KDF import PBKDF2, scrypt,HKDF
 import bcrypt
@@ -209,4 +207,28 @@ else:
   KEK = HKDF(password.encode(), bytes, salt, SHA256, 1)
   print ("Using HKDF")
 ```
+
+Prove the following hash:
+```
+Using PBKDF2
+Password: qwerty, Salt: 329b074c0058ccf1ba2e4705382963ff
+
+Hash:  b'a22e6c7294e74b73cb3fbe43004c2557'
+```
+
+Now integrate the code this code with the code in Program B.1, so that we generate an AES encryption key for either HKDF, PBKDF2, bcrypt and scrypt, and prove the following:
+```
+Message:     hello how are you?
+Password:    qwerty123
+Salt:        b'cd2261c94f395837ec313c50bbeaaef09555d4725eaa19f3c4ee868a8362d6ba'
+Cipher:      b'17cb2d75efffba096bf8af270b2aab0e8220'
+Auth Msg:    b'63a67a54d98c14059521776ee1c0ba0e'
+Nonce:       b'866e0a3d8adddd2673408901ef92276d'
+
+
+Decrypted:   hello how are you?
+```
+
+Ans: [here](https://asecuritysite.com/encryption/aes_gcm2)
+
 
