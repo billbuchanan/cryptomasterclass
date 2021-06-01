@@ -4,6 +4,7 @@
 Objective: The key objective of this lab is to understand the range of symmetric key methods used within symmetric key encryption. We will introduce block ciphers, stream ciphers and padding. 
 
 ## A Bit operations, hex and Base-64
+Within encryption, we need to represent byte array values and binary values in printable formats. This incudes a hexademical format and Base-64. In the following code we take different input formats and convert them into differing output formats. Overall, for encyption, we operate on a byte array, and where each value is represented as a byte value (8 bits).  
 
 ```python
 import binascii
