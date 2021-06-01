@@ -5,9 +5,98 @@ Objective: The key objective of this lab is to understand the range of symmetric
 
 Sample answers:[here](https://github.com/billbuchanan/cryptomasterclass/blob/master/unit02_symmetric/lab/possible_ans.md)
 
-## A	Python Coding (ECB)
+## A Bit operations, hex and Base-64
 
-### A.1 ECB Mode
+```
+
+import binascii
+import base64
+
+str="hello"
+hex_str=binascii.hexlify(str.encode())
+base64_str= base64.b64encode(str.encode())
+print(f"String {str}")
+print (f"Base64: {base64_str}")
+print(f"Hex: {hex_str}")
+
+base64_str="Z29vZGJ5ZQ=="
+byte_str=base64.b64decode(base64_str)
+hex_str= binascii.hexlify(byte_str)
+print(f"\nBase64: {base64_str}")
+print (f"String: {byte_str.decode()}")
+print(f"Hex: {hex_str}")
+
+bin_str=b"hello"
+hex_str=binascii.hexlify(bin_str)
+base64_str= base64.b64encode(bin_str)
+print(f"\nBinary: {bin_str}")
+print (f"Base64: {base64_str}")
+print(f"Hex: {hex_str}")
+
+
+hex_str=b"666F7874726F74"
+byte_str=binascii.unhexlify(hex_str)
+base64_str= base64.b64encode(byte_str)
+print(f"\nHex: {hex_str}")
+print(f"Bytes: {byte_str}")
+print (f"Base64: {base64_str}")
+print(f"String: {byte_str.decode()}")
+```
+
+Replit: [here](https://replit.com/@billbuchanan/hexbase64)
+
+Can you complete the following:
+
+| String | Base64 | Hex |
+|-----------|-----------|-----------|
+| “hello”   |    | |
+| “inkwell”  |  |  |
+| 	   |   b3BhbA==  | 
+|  	   |  |  6469616D6F6E64  |
+
+
+and:
+
+```
+import sys
+
+val1="00110101"
+val2="00110111"
+
+if (len(sys.argv)>1):
+        val1=sys.argv[1]
+
+
+if (len(sys.argv)>2):
+        val2=sys.argv[2]
+
+def nor(p, q):
+    return ~ (p | q) & 0xff;
+
+def nand(p, q):
+    return ~(p & q) & 0xff;
+
+dec1=int(val1,2)
+dec2=int(val2,2)
+
+print ("Decimal form:\t",bin(dec1)[2:10].rjust(8,'0'))
+print ("Decimal form:\t",bin(dec2)[2:10].rjust(8,'0'))
+
+print ("\nResult:")
+print ("--------------------")
+print ("Bitwise AND:\t",bin(dec1 & dec2)[2:10].rjust(8,'0'))
+print ("Bitwise NAND:\t",bin(nand(dec1,dec2))[2:10].rjust(8,'0'))
+print ("Bitwise OR:\t",bin(dec1 | dec2)[2:10].rjust(8,'0'))
+
+print ("Bitwise NOR:\t",bin(nor(dec1,dec2))[2:10].rjust(8,'0'))
+
+print ("Bitwise XOR:\t",bin(dec1 ^ dec2)[2:10].rjust(8,'0'))
+```
+Replit: [here](https://replit.com/@billbuchanan/binval)
+
+## B	Python Coding (ECB)
+
+### B.1 ECB Mode
 In this part of the lab, we will investigate the usage of Python code to perform different padding methods and using AES. In the first example we will generate a 256-bit AES encryption key and use ECB mode. The code should be:
 
 ```python
