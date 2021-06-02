@@ -35,6 +35,8 @@ print ("=========================")
 print ("Signatures match:\t",vk.verify(signature, msg.encode()))
 ```
 
+Replit: [here](https://replit.com/@billbuchanan/signing01#main.py)
+
 What are the signatures (you only need to note the first four characters) for a message of “Bob”, for the curves of NIST192p, NIST521p and SECP256k1:
 
 NIST192p:
