@@ -3,7 +3,7 @@
 # Lab 3: Asymmetric (Public) Key
 Objective: The key objective of this lab is to provide a practical introduction to public key encryption, and with a focus on RSA and Elliptic Curve methods. This includes the creation of key pairs and in the signing process.
 
-Note: If you are using Python 3, instead of "pip install pycrypto" you can install pycryptodome with "pip3 install pycryptodome".
+Note: If you are using Python 3, you can install pycryptodome with "pip3 install pycryptodome".
 
 ## ECC
 ### A.1 ECC
