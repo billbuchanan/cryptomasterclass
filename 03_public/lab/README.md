@@ -60,46 +60,48 @@ https://asecuritysite.com/encryption/elc
 Code used:
 
 ```python
-import OpenSSL
-import pyelliptic
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives import serialization
+import binascii
 
-secretkey="password"
-test="Test123"
+private_key = ec.generate_private_key(ec.SECP256R1())
+public_key=private_key.public_key()
 
-alice = pyelliptic.ECC() 
-bob = pyelliptic.ECC()
+
+private_key_der = private_key.private_bytes(
+        encoding=serialization.Encoding.DER,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption())
+
+public_key_pem = public_key.public_bytes(
+        serialization.Encoding.DER,
+        serialization.PublicFormat.SubjectPublicKeyInfo)
+
 
 print ("++++Keys++++")
-print ("Bob's private key: ",bob.get_privkey().hex())
-print ("Bob's public key: ",bob.get_pubkey().hex())
-
-print()
-print ("Alice's private key: ",alice.get_privkey().hex())
-print ("Alice's public key: ",alice.get_pubkey().hex())
-
-
-ciphertext = alice.encrypt(test, bob.get_pubkey())
-
-print ("\n++++Encryption++++")
-
-print ("Cipher: "+ciphertext.hex())
-
-print ("Decrypt: "+bob.decrypt(ciphertext))
+print (f"Bob's private key: {binascii.hexlify(private_key_der)}")
+print (f"Bob's public key: {binascii.hexlify(public_key_pem)}")
 ```
 
-For a message of “Hello. Alice”, what is the ciphertext sent (just include the first four characters):
+Show that the output is in the form of:
 
+```
+++++Keys++++
+Bob's private key: b'308187020100301306072a8648ce3d020106082a8648ce3d030107046d306b0201010420ddd336a1d838ef2709f4570372bfd0aab397b255cdc3275e68ad85297dff5052a14403420004f697b7a065acc0062773a6ed2f25bca52b7850991ed01f300baac255265d760db9f84c77fe656c84e28339be7bc20799250e734d56825b2d7c02eea5f9395e67'
+Bob's public key: b'3059301306072a8648ce3d020106082a8648ce3d03010703420004f697b7a065acc0062773a6ed2f25bca52b7850991ed01f300baac255265d760db9f84c77fe656c84e28339be7bc20799250e734d56825b2d7c02eea5f9395e67'
+```
 
+Replit: [here](https://replit.com/@billbuchanan/eccnew01#main.py)
 
-### D.2 	
-Let’s say we create an elliptic curve with y<sup>2</sup> = x<sup>3</sup> + 7, and with a prime number of 89, generate the first five (x,y) points for the finite field elliptic curve. You can use the Python code at the following to generate them:
+Now try different elliptic curves, such as SECP192R1. What is the effect on the sizes of the keys?
 
-https://asecuritysite.com/encryption/ecc_points
+Now modify the program, so that it supports the display of the keys in a PEM format:
 
-First five points:
-
-
-
+```
+++++Keys++++
+Bob's private key: b'-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgLtM67OGWDS+Gg2Gx\nUFCVFA2ApkS7495UL0JmTzcSPwihRANCAASNfYdaNFwRVmSRW6csoamFGKFzVrxl\ndgdGn1xFlM+v5U3+rswuoDVr9gksXCilcWpEFVJEOHTNEs2TAlw+Pu04\n-----END PRIVATE KEY-----\n'
+Bob's public key: b'-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjX2HWjRcEVZkkVunLKGphRihc1a8\nZXYHRp9cRZTPr+VN/q7MLqA1a/YJLFwopXFqRBVSRDh0zRLNkwJcPj7tOA==\n-----END PUBLIC KEY-----\n'
+```
 
 
 
@@ -107,8 +109,7 @@ First five points:
 ## E	RSA
 ### E.1 
 A simple RSA program to encrypt and decrypt with RSA is given next. Prove its operation:
-```
-
+```python
 import rsa
 (bob_pub, bob_priv) = rsa.newkeys(512)
 
@@ -120,7 +121,7 @@ print(message.decode('utf8'))
 
 Now add the lines following lines after the creation of the keys:
 
-```
+```python
 print (bob_pub)
 print (bob_priv)
 ```
@@ -223,9 +224,6 @@ Using this code, can you now create an RSA program where the user enters the val
 Run the following code and observe the output of the keys. If you now change the key generation key from ‘PEM’ to ‘DER’, how does the output change:
 
 
-
-
-
 ```python
 from Crypto.PublicKey import RSA
 
@@ -248,6 +246,7 @@ ciphertext = rsa.encrypt('Here is my message'.encode(), bob_pub)
 message = rsa.decrypt(ciphertext, bob_priv)
 print(message.decode('utf8'))
 ```
+
 A sample [here](https://repl.it/@billbuchanan/rsanew01#main.py)
 
 ## F	PGP
@@ -463,20 +462,8 @@ git clone ssh://git@github.com/<user>/<repository name>.git
 If this doesn’t work, try the https connection that is defined on GitHub.
 
 
-
-
-## H	What I should have learnt from this lab?
-The key things learnt:
-
-* The basics of the RSA method.
-* The process of generating RSA and Elliptic Curve key pairs.
-* To illustrate how the private key is used to sign data, and then using the public key to verify the signature.
-
-A reflective statement:
-
-* In ECC, we use a 256-bit private key. This is used to generate the key for signing Bitcoin transactions. Do you think that a 256-bit key is largest enough? If we use a cracker what performs 1 Tera keys per second, will someone be able to determine our private key?
-
 ## Additional
+
 The following is code which performs RSA key generation, and the encryption and decryption of a message (https://asecuritysite.com/encryption/rsa_example):
 
 ```python
@@ -549,6 +536,30 @@ Kn52h41pX7FI5TXcqIDPw+uqAu50JnwDR0dLYY6fvIce
 -----END RSA PRIVATE KEY-----
 ```
 
+## Answers
+	
+```python
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives import serialization
+import binascii
 
+private_key = ec.generate_private_key(ec.SECP256R1())
+public_key=private_key.public_key()
+
+
+private_key_der = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption())
+
+public_key_pem = public_key.public_bytes(
+        serialization.Encoding.PEM,
+        serialization.PublicFormat.SubjectPublicKeyInfo)
+
+
+print ("++++Keys++++")
+print (f"Bob's private key: {private_key_der}")
+print (f"Bob's public key: {public_key_pem}")
+```
 
 
