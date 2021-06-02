@@ -5,9 +5,9 @@ Objective: The key objective of this lab is to provide a practical introduction 
 
 Note: If you are using Python 3, instead of "pip install pycrypto" you can install pycryptodome with "pip3 install pycryptodome".
 
-## A	RSA Encryption
+## A	Keys
 
-### A.1
+### A.1 RSA
 Bob has a private RSA key of:
 ```
 -----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQDoIhiWs15X/6xiLAVcBzpgvnuvMzHBJk58wOWrdfyEAcTY10oG\n+6auNFGqQHYHbfKaZlEi4prAoe01S/R6jpx8ZqJUN0WKNn5G9nmjJha9Pag28ftD\nrsT+4LktaQrxdNdrusP+qI0NiYbNBH6qvCrK0aGiucextehnuoqgDcqmRwIDAQAB\nAoGAZCaJu0MJ2ieJxRU+/rRzoFeuXylUNwQC6toCfNY7quxkdDV2T8r038Xc0fpb\nsdrix3CLYuSnZaK3B76MbO/oXQVBjDQZ7jVQ5K41nVCEZOtRDBeX5Ue6CBs4iNmC\n+QyWx+u4OZPURq61YG7D+F1aWRvczdEZgKHPXl/+s5pIvAkCQQDw4V6px/+DJuZV\n5Eg20OZe0m9Lvaq+G9UX2xTA2AUuH8Z79e+SCus6fMVl+Sf/W3y3uXp8B662bXhz\nyheH67aDAkEA9rQrvmFj65n/D6eH4JAT4OP/+icQNgLYDW+u1Y+MdmD6A0YjehW3\nsuT9JH0rvEBET959kP0xCx+iFEjl81tl7QJBAMcp4GZK2eXrxOjhnh/Mq51dKu6Z\n/NHBG3jlCIzGT8oqNaeK2jGLW6D5RxGgZ8TINR+HeVGR3JAzhTNftgMJDtcCQQC3\nIqReXVmZaeXnrwu07f9zsI0zG5BzJ8VOpBt7OWah8fdmOsjXNgv55vbsAWdYBbUw\nPQ+lc+7WPRNKT5sz/iM5AkEAi9Is+fgNy4q68nxPl1rBQUV3Bg3S7k7oCJ4+ju4W\nNXCCvRjQhpNVhlor7y4FC2p3thje9xox6QiwNr/5siyccw==\n-----END RSA PRIVATE KEY-----
@@ -44,12 +44,7 @@ print ("Message:",message)
 What is the plaintext message that Bob has been sent?
 
 
-
-
- 
-
-## D	Elliptic Curve Encryption
-### D.1	
+### B.2 ECC
 In the following Bob and Alice create elliptic curve key pairs. Bob can encrypt a message for Alice with her public key, and she can decrypt with her private key. Code used:
 
 ```python
@@ -96,11 +91,8 @@ Bob's private key: b'-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM
 Bob's public key: b'-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjX2HWjRcEVZkkVunLKGphRihc1a8\nZXYHRp9cRZTPr+VN/q7MLqA1a/YJLFwopXFqRBVSRDh0zRLNkwJcPj7tOA==\n-----END PUBLIC KEY-----\n'
 ```
 
-
-
-
-## E	RSA
-### E.1 
+## B	RSA
+### B.1 
 A simple RSA program to encrypt and decrypt with RSA is given next. Prove its operation:
 ```python
 import rsa
@@ -111,6 +103,8 @@ ciphertext = rsa.encrypt(msg.encode(), bob_pub)
 message = rsa.decrypt(ciphertext, bob_priv)
 print(message.decode('utf8'))
 ```
+
+Replit: [here](https://replit.com/@billbuchanan/rsa05) 
 
 Now add the lines following lines after the creation of the keys:
 
@@ -130,90 +124,7 @@ When you identity the two prime numbers (p and q), with Python, can you prove th
 Proven Yes/No
 
 
-
-
-### E.2	
-We will follow a basic RSA process. If you are struggling here, have a look at the following page:
-
-https://asecuritysite.com/encryption/rsa
-
-First, pick two prime numbers:
-
-p=
-
-q=
-
-Now calculate N (p.q) and PHI [(p-1).(q-1)]:
-
-N=
-
-PHI = 
-
-Now pick a value of e which does not share a factor with PHI [gcd(PHI,e)=1]:
-
-e=
-
-Now select a value of d, so that (e.d) (mod PHI) = 1:
-
-[Note: You can use this page to find d: https://asecuritysite.com/encryption/inversemod]
-
-d=
-
-Now for a message of M=5, calculate the cipher as:
-
-C = M<sup>e</sup> (mod N) = 
-
-Now decrypt your ciphertext with:
-
-M = C<sup>d</sup> (mod N) =
-
-Did you get the value of your message back (M=5)? If not, you have made a mistake, so go back and check.
-
-Now run the following code and prove that the decrypted cipher is the same as the message: 
-
-```python
-import libnum
-
-p=11
-q=3
-N=p*q
-PHI=(p-1)*(q-1)
-e=3
-
-d= libnum.invmod(e,PHI)
-
-print (e,N)
-print (d,N)
-M=4
-print ("\nMessage:",M)
-cipher = M**e % N
-print ("Cipher:",cipher)
-message = cipher**d % N
-print ("Message:",message)
-```
-
-
-Select three more examples with different values of p and q, and then select e in order to make sure that the cipher will work:
-
-
-
-
-### E.2	
-In the RSA method, we have a value of e, and then determine d from (d.e) (mod PHI)=1. But how do we use code to determine d? Well we can use the Euclidean algorithm. The code for this is given at:
-
-https://asecuritysite.com/encryption/inversemod
-
-Using the code, can you determine the following:
-
-```
-Inverse of 53 (mod 120) = 
-Inverse of 65537 (mod 1034776851837418226012406113933120080) = 
-```
-
-Using this code, can you now create an RSA program where the user enters the values of p, q, and e, and the program determines (e,N) and (d,N)?
-
-
-### E.3	
+### B.2
 Run the following code and observe the output of the keys. If you now change the key generation key from ‘PEM’ to ‘DER’, how does the output change:
 
 
@@ -230,7 +141,7 @@ print (binPubKey)
 ```
 
 
-### E.4	
+### B.3
 A simple RSA program to encrypt and decrypt with RSA is given next. Prove its operation:
 ```python
 import rsa
@@ -242,8 +153,82 @@ print(message.decode('utf8'))
 
 A sample [here](https://repl.it/@billbuchanan/rsanew01#main.py)
 
-## F	PGP
-### F.1	
+### B.4
+The following is code which performs RSA key generation, and the encryption and decryption of a message (https://asecuritysite.com/encryption/rsa_example):
+
+```python
+from Crypto.PublicKey import RSA
+from Crypto.Util import asn1
+from base64 import b64encode
+from Crypto.Cipher import PKCS1_OAEP
+import sys
+
+msg = "hello..."
+
+if (len(sys.argv)>1):
+        msg=str(sys.argv[1])
+
+key = RSA.generate(1024)
+
+binPrivKey = key.exportKey('PEM')
+binPubKey =  key.publickey().exportKey('PEM')
+
+print
+print ("====Private key===")
+print (binPrivKey)
+print
+print ("====Public key===")
+print (binPubKey)
+
+privKeyObj = RSA.importKey(binPrivKey)
+pubKeyObj =  RSA.importKey(binPubKey)
+
+
+cipher = PKCS1_OAEP.new(pubKeyObj)
+ciphertext = cipher.encrypt(msg.encode())
+
+print
+print ("====Ciphertext===")
+print (b64encode(ciphertext))
+
+cipher = PKCS1_OAEP.new(privKeyObj)
+message = cipher.decrypt(ciphertext)
+
+
+print
+print ("====Decrypted===")
+print ("Message:",message)
+```
+
+The code is [here](https://repl.it/@billbuchanan/rsanewcode#main.py). Can you decrypt this:
+
+```
+fIVuuWFLVANs9MjatXbIbtH7/n0dBpDirXKi82jZovXS/krxy43cP0J9jlNz4dqxLgdiqtRe1AcymX06JUo1SrcqDEh3lQxoU1KUvV7jG9GE3pSxHq4dQlcWdHz95b9go6QYbe/5S/uJgolR+S9qaDE8tXYysP8FeXIPd0dXxHo=
+```
+
+The private key is:
+
+```
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQCfQfirYVXgzT90v6SqgeID7q/WK1XaVTNGVFolDUOcrXl/egRG
+4iag5tiTbrMYCQ8CSTYn7q0U4AmBXihlbWDqf6MMk6OEoDxdWZTiG1MmQ1wZikFE
+s7sYSog/poYleCeYW8kVzHNWnt9IuQWekIg6ZHkwp4NE/aW8HxvEwYRqCQIDAQAB
+AoGAE6rkiFmxbt06GHNwZQQ8QssP2Q2qARgjiGxzY38DWg6MYiNR8uUL6zQHDBIQ
+OQgpW9lpwD24D0tpsRnNOFVtMeafcxmykX+qHGtNeKJuTtqSm2eTI6gNbC8iosGT
+XJEPM8tc/dfZ2sDobLfi0alWFOzWo8vKaLnnAdMHoZ8mDo8CQQDCMx08JVlTW1zl
++4UTEnyyYmIezw5ORfMqPtN1LpQ4ptYnHNMVJPWcpRwBYZfHlPOPtuVwo6gzv82G
+QpgQsd4PAkEA0fA8e8R6JbeUR1HxsqWeCnPz3Ahq5Ya5WA6HyJQml9aDVqKDDp2L
+3AcqsvFEKJ/T34r31so2yW6hj2yFBnzOZwJBAIqanrgJ1CpJYBGJJd6J6FQNIgjp
+MUWuaTJyqsvNFd8lPF2oFgPWYDKQKV/W/tRkvD2LhVCSjf95WsADkbMAsAMCQAHo
+wWQOwV2eccbERAJv5yQJMeqKWQ6FTyIx36I/VqqC1Obwy2hSnnb9ybGe6BPGgFLE
+HMTjSeRDEU0Qm5UXhXkCQQCPlZJqlgksBN/TULHC4RgsXIx+oFylBrkiFamYsuEt
+Kn52h41pX7FI5TXcqIDPw+uqAu50JnwDR0dLYY6fvIce
+-----END RSA PRIVATE KEY-----
+```
+
+
+## C	PGP
+### C.1	
 The following is a PGP key pair. Using https://asecuritysite.com/encryption/pgp, can you determine the owner of the keys:
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -289,11 +274,11 @@ qV+0VXeqyyru86F+xfrEKHdbAlqzMA==
 -----END PGP PRIVATE KEY BLOCK-----
 ```
 
-### F.2	
+### C.2	
 Using the code at the following link, generate a key:
 https://asecuritysite.com/encryption/openpgp
 
-### F.3	
+### C.3	
 An important element in data loss prevention is encrypted emails. In this part of the lab we will use an open source standard: PGP.  
 
 
@@ -424,10 +409,10 @@ Did you receive a reply:
 
 
 
-## G GitHub Keys
+## D GitHub Keys
 
 ### I.1
-On your VM, go into the ~/.ssh folder. Now generate your SSH keys:
+On your machine, go into the ~/.ssh folder. Now generate your SSH keys:
 
 ```
 ssh-keygen -t rsa -C "your email address"
@@ -455,81 +440,9 @@ git clone ssh://git@github.com/<user>/<repository name>.git
 If this doesn’t work, try the https connection that is defined on GitHub.
 
 
-## Additional
-
-The following is code which performs RSA key generation, and the encryption and decryption of a message (https://asecuritysite.com/encryption/rsa_example):
-
-```python
-from Crypto.PublicKey import RSA
-from Crypto.Util import asn1
-from base64 import b64encode
-from Crypto.Cipher import PKCS1_OAEP
-import sys
-
-msg = "hello..."
-
-if (len(sys.argv)>1):
-        msg=str(sys.argv[1])
-
-key = RSA.generate(1024)
-
-binPrivKey = key.exportKey('PEM')
-binPubKey =  key.publickey().exportKey('PEM')
-
-print
-print ("====Private key===")
-print (binPrivKey)
-print
-print ("====Public key===")
-print (binPubKey)
-
-privKeyObj = RSA.importKey(binPrivKey)
-pubKeyObj =  RSA.importKey(binPubKey)
-
-
-cipher = PKCS1_OAEP.new(pubKeyObj)
-ciphertext = cipher.encrypt(msg.encode())
-
-print
-print ("====Ciphertext===")
-print (b64encode(ciphertext))
-
-cipher = PKCS1_OAEP.new(privKeyObj)
-message = cipher.decrypt(ciphertext)
-
-
-print
-print ("====Decrypted===")
-print ("Message:",message)
-```
-
-The code is [here](https://repl.it/@billbuchanan/rsanewcode#main.py). Can you decrypt this:
-
-```
-fIVuuWFLVANs9MjatXbIbtH7/n0dBpDirXKi82jZovXS/krxy43cP0J9jlNz4dqxLgdiqtRe1AcymX06JUo1SrcqDEh3lQxoU1KUvV7jG9GE3pSxHq4dQlcWdHz95b9go6QYbe/5S/uJgolR+S9qaDE8tXYysP8FeXIPd0dXxHo=
-```
-
-The private key is:
-
-```
------BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQCfQfirYVXgzT90v6SqgeID7q/WK1XaVTNGVFolDUOcrXl/egRG
-4iag5tiTbrMYCQ8CSTYn7q0U4AmBXihlbWDqf6MMk6OEoDxdWZTiG1MmQ1wZikFE
-s7sYSog/poYleCeYW8kVzHNWnt9IuQWekIg6ZHkwp4NE/aW8HxvEwYRqCQIDAQAB
-AoGAE6rkiFmxbt06GHNwZQQ8QssP2Q2qARgjiGxzY38DWg6MYiNR8uUL6zQHDBIQ
-OQgpW9lpwD24D0tpsRnNOFVtMeafcxmykX+qHGtNeKJuTtqSm2eTI6gNbC8iosGT
-XJEPM8tc/dfZ2sDobLfi0alWFOzWo8vKaLnnAdMHoZ8mDo8CQQDCMx08JVlTW1zl
-+4UTEnyyYmIezw5ORfMqPtN1LpQ4ptYnHNMVJPWcpRwBYZfHlPOPtuVwo6gzv82G
-QpgQsd4PAkEA0fA8e8R6JbeUR1HxsqWeCnPz3Ahq5Ya5WA6HyJQml9aDVqKDDp2L
-3AcqsvFEKJ/T34r31so2yW6hj2yFBnzOZwJBAIqanrgJ1CpJYBGJJd6J6FQNIgjp
-MUWuaTJyqsvNFd8lPF2oFgPWYDKQKV/W/tRkvD2LhVCSjf95WsADkbMAsAMCQAHo
-wWQOwV2eccbERAJv5yQJMeqKWQ6FTyIx36I/VqqC1Obwy2hSnnb9ybGe6BPGgFLE
-HMTjSeRDEU0Qm5UXhXkCQQCPlZJqlgksBN/TULHC4RgsXIx+oFylBrkiFamYsuEt
-Kn52h41pX7FI5TXcqIDPw+uqAu50JnwDR0dLYY6fvIce
------END RSA PRIVATE KEY-----
-```
 
 ## Answers
+### B.1
 	
 ```python
 from cryptography.hazmat.primitives.asymmetric import ec
