@@ -6,7 +6,33 @@ Objective: The key objective of this lab is to provide a practical introduction 
 Note: If you are using Python 3, you can install pycryptodome with "pip3 install pycryptodome".
 
 ## ECC
+
 ### A.1 ECC
+
+```python
+import sys
+import random
+
+import random
+
+from secp256k1 import curve,scalar_mult
+
+print (f"Base point={curve.g}\nPrime={curve.p}\nOrder={curve.n}\n")
+
+# Alice's key pair (private,public)
+private = random.randint(0, curve.n-1)
+public = scalar_mult(private,curve.g)
+
+print (f"Alice's private key={private}\nAlice's public key={public}\n")
+```
+
+Replit: [here](https://replit.com/@billbuchanan/ecckeys)
+
+Run the program. Can you explain the parameters of the curve, and how the public and private keys are created?
+
+
+
+### A.2 ECC
 In the following Bob and Alice create elliptic curve key pairs. Bob can encrypt a message for Alice with her public key, and she can decrypt with her private key. Code used:
 
 ```python
