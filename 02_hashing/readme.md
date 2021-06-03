@@ -1,8 +1,17 @@
-# Hashing methods
+# 2 Hashing methods
 The key concepts are: MD2. MD4. MD5. SHA-1. Salting. Collisions. LM Hash. SHA-3. Bcrypt. PBKDF2. Open SSL Hash passwords. One Time Passwords. Timed One Time Password (TOTP). Hashed One Time Password (HOTP). HMAC.
 
 The links for this unit are:
 
 * Lecture. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/02_hashing/lectures)
-* Lab. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/02_hashing/labs)
+* Lab. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/02_hashing/lab)
+
+Interesting links:
+
+* Benchmark. [here](https://asecuritysite.com/encryption/htest)
+* Methods. [here](https://asecuritysite.com/encryption/hash)
+* Password strength. [here](https://asecuritysite.com/encryption/passes)
+* Splunk password hash example. [here](https://asecuritysite.com/encryption/splunk_hash)
+* KDF. [here](https://asecuritysite.com/encryption/kdf).
+* HMAC. (https://asecuritysite.com/encryption/tink02)
 
