@@ -135,7 +135,7 @@ salt="ZDzPE45C"
 string="the boy stood on the burning deck"
 salt2="1111111111111111111111"
 
-setup_c="""
+setup_c=""
 from hashlib import md5
 import mmh3
 import smhasher
