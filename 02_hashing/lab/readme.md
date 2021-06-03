@@ -314,7 +314,7 @@ print ("\n\nDecrypted:\t",res.decode())
 ```
 
 
-Repl.it: [here](hhttps://replit.com/@billbuchanan/aesgcm2) Demo: [here](https://asecuritysite.com/encryption/aes_gcm2)
+Repl.it: [here](https://replit.com/@billbuchanan/aesgcm2) Demo: [here](https://asecuritysite.com/encryption/aes_gcm2)
 
 ### B.2
 In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt:
