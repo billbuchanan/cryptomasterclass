@@ -16,6 +16,7 @@ Fundamentals:
 
 AES Encryption:
 * AES Encryption. [here](https://asecuritysite.com/encryption/aes_modes)
+* Range of methods. [here](https://asecuritysite.com/subjects/chapter122)
 
 
 Stream ciphers:
@@ -25,3 +26,6 @@ Stream ciphers:
 
 Viewing keys:
 * Google Tink with Symmetric Key. [here](https://asecuritysite.com/encryption/tink01)
+
+Videos:
+* Introduction. [here](https://www.youtube.com/watch?v=nLRV34K3xIo)
