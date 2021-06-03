@@ -13,5 +13,11 @@ Interesting links:
 * Password strength. [here](https://asecuritysite.com/encryption/passes)
 * Splunk password hash example. [here](https://asecuritysite.com/encryption/splunk_hash)
 * KDF. [here](https://asecuritysite.com/encryption/kdf).
-* HMAC. (https://asecuritysite.com/encryption/tink02)
+* HMAC. [here](https://asecuritysite.com/encryption/tink02)
+* Hashing complete. [here](https://asecuritysite.com/subjects/chapter124)
+
+
+Videos:
+* Hash cracking. [here](https://asecuritysite.com/subjects/chapter101)
+* Introduction. [here](https://www.youtube.com/watch?v=xmeO2wQzfbY)
 
