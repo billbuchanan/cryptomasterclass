@@ -5,6 +5,7 @@ In this masterclass we will cover:
 * Hashing.
 * Public key.
 * Signatures.
+* Key exchange.
 
 
 
