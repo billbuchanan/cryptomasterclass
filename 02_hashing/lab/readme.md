@@ -320,7 +320,7 @@ Repl.it: [here](https://replit.com/@billbuchanan/aesgcm2) Demo: [here](https://a
 ### B.2
 In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt:
 ```python
-from Crypto.Protocol.KDF import PBKDF2, scrypt,HKDF
+from Crypto.Protocol.KDF import PBKDF2, scrypt, HKDF
 import bcrypt
 from Crypto.Random import get_random_bytes
 import binascii
