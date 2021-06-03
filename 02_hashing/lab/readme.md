@@ -323,7 +323,8 @@ In the following skelton code, we generate 16 bytes of random salt, and then eit
 from Crypto.Protocol.KDF import PBKDF2, scrypt,HKDF
 import bcrypt
 from Crypto.Random import get_random_bytes
-
+import binascii
+from Crypto.Hash import SHA256
 
 password="qwerty"
 salt = get_random_bytes(16)
