@@ -5,7 +5,7 @@ The main method we use is AES as a block cipher or a stream cipher (GCM).
 
 The links for this unit are:
 
-* Lecture. [here](https://github.com/billbuchanan/cryptomasterclass/blob/main/01_symmetric/lectures/lecture_secret.ppt)
+* Lecture. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/01_symmetric/lectures)
 * Lab. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/01_symmetric/labs)
 
 The following are some interesting links.
