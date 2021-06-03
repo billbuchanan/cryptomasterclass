@@ -20,4 +20,5 @@ Interesting links:
 Videos:
 * Hash cracking. [here](https://asecuritysite.com/subjects/chapter101)
 * Introduction. [here](https://www.youtube.com/watch?v=xmeO2wQzfbY)
+* Overview. [here](https://www.youtube.com/watch?v=3D11YGD4vFQ)
 
