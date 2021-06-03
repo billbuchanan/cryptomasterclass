@@ -2,6 +2,12 @@
 This unit covers the usage of symmetric key, and with a focus on symmetric key methods. With symmetric key, we use the same key to encrypt and to decrypt. 
 The most basic mode is ECB, but we can enhance with a salt. A common method which uses salt is 
 The main method we use is AES as a block cipher or a stream cipher (GCM). 
+
+The links for this unit are:
+
+* Lecture. [here](https://github.com/billbuchanan/cryptomasterclass/blob/main/01_symmetric/lectures/lecture_secret.ppt)
+* Lab. [here](https://github.com/billbuchanan/cryptomasterclass/tree/main/01_symmetric/labs)
+
 The following are some interesting links.
 
 Fundamentals:
