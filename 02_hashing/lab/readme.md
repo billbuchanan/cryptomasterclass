@@ -146,6 +146,7 @@ salt="ZDzPE45C"
 string="the boy stood on the burning deck"
 salt2="1111111111111111111111"
 
+"""
 
 import hashlib;
 
