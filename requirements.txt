@@ -4,7 +4,6 @@ passlib
 bcrypt
 mmh3
 smhasher 
-hashlib
 libnum
 bitstring
 pbkdf2
@@ -22,7 +21,6 @@ django-ipware
 django-phonenumber-field
 django-simple-captcha
 django-tables2
-httpagentparse
 ipaddress
 phonenumbers
 pyotp
