@@ -135,7 +135,7 @@ salt="ZDzPE45C"
 string="the boy stood on the burning deck"
 salt2="1111111111111111111111"
 
-setup_c=""
+setup_c="""
 from hashlib import md5
 import mmh3
 import smhasher
@@ -146,6 +146,7 @@ salt="ZDzPE45C"
 string="the boy stood on the burning deck"
 salt2="1111111111111111111111"
 
+"""
 
 import hashlib;
 
@@ -319,10 +320,11 @@ Repl.it: [here](https://replit.com/@billbuchanan/aesgcm2) Demo: [here](https://a
 ### B.2
 In the following skelton code, we generate 16 bytes of random salt, and then either use PBKDF2, scrypt or bcrypt:
 ```python
-from Crypto.Protocol.KDF import PBKDF2, scrypt,HKDF
+from Crypto.Protocol.KDF import PBKDF2, scrypt, HKDF
 import bcrypt
 from Crypto.Random import get_random_bytes
-
+import binascii
+from Crypto.Hash import SHA256
 
 password="qwerty"
 salt = get_random_bytes(16)
